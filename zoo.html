@@ -38,12 +38,31 @@
 	<h1>Välkommen till vårt ZOO</h1>
 	<p>
 		Lägga till ett djur
+		<input id="inputNamn" type="text" placeholder="Djurnamn"/>
+		<input id="inputFamilj" type="text" placeholder="Familj typ däggdjur"/>
+		<input id="inputAntal" type="text" placeholder="Antal"/>
+		<input id="inputFärg" type="text" placeholder="Färg"/>
+		<button id="addButton">Lägg till djur</button>
 	</p>
 	
 	<script type="text/javascript">
 		// För att garantera att inga DOM-element är null
 		window.addEventListener('load', function() {
-
+			let namn = document.getElementById('inputNamn');
+			let familj = document.getElementById('inputFamilj');
+			let antal = document.getElementById('inputAntal');
+			let färg = document.getElementById('inputFärg');
+			let addButton = document.getElementById('addButton');
+			
+			addButton.addEventListener('click', function(event) {
+				console.log('Klickat lägga till djur');
+				firebase.database().ref('djur/' + namn.value).set({
+					namn: namn.value,
+					familj: familj.value,
+					antal: antal.value,
+					färg: färg.value
+				})
+			})
 		});
 	</script>
 </body>
