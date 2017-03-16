@@ -45,6 +45,8 @@
 		<button id="addButton">Lägg till djur</button>
 	</p>
 	
+	<table id="tableVisaDjur"></table>
+	
 	<script type="text/javascript">
 		// För att garantera att inga DOM-element är null
 		window.addEventListener('load', function() {
@@ -53,6 +55,7 @@
 			let antal = document.getElementById('inputAntal');
 			let färg = document.getElementById('inputFärg');
 			let addButton = document.getElementById('addButton');
+			let tableVisaDjur = document.getElementById('tableVisaDjur');
 			
 			addButton.addEventListener('click', function(event) {
 				console.log('Klickat lägga till djur');
@@ -62,8 +65,20 @@
 					antal: antal.value,
 					färg: färg.value
 				})
+			});
+			
+			firebase.database().ref('djur/').on('value', function(snapshot) {
+				console.log('Ändring i databasen');
+				let data = snapshot.val();
+				for( let key in data ) {
+					let animal = data[key];
+					console.log('data[key]=', data[key]);
+				}
 			})
 		});
 	</script>
 </body>
 </html>
+
+
+
