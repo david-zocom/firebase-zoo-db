@@ -73,6 +73,8 @@
 				for( let key in data ) {
 					let animal = data[key];
 					console.log('data[key]=', data[key]);
+					let tr = document.createElement('tr');
+					tr.innerHTML = `<td>${animal.namn}</td> <td>${animal.familj}</td> <td>${animal.antal}</td> <td style='background-color: ${animal.färg}'></td>`;
 				}
 			})
 		});
