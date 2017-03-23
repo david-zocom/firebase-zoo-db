@@ -91,16 +91,23 @@
 				tableVisaDjur.appendChild(tr);
 			}
 			
-			btnSortNamn.addEventListener('click', function(event) {
-				tableVisaDjur.innerHTML = '';
-				//firebase.database().ref('djur/').off('value')
-				firebase.database().ref('djur/').orderByChild('namn')
-				.once('value', function(snapshot) {
-					snapshot.forEach( animalRef => {
-						addAnimalToTable(animalRef.val());
-					})
-				});
-			})
+			function sortFunction(button, sortKey) {
+				button.addEventListener('click', function(event) {
+					tableVisaDjur.innerHTML = '';
+					//firebase.database().ref('djur/').off('value')
+					firebase.database().ref('djur/').orderByChild(sortKey)
+					.once('value', function(snapshot) {
+						snapshot.forEach( animalRef => {
+							addAnimalToTable(animalRef.val());
+						})
+					});
+				})
+			}
+			sortFunction(btnSortNamn, 'namn');
+			sortFunction(btnSortFamilj, 'familj');
+			sortFunction(btnSortAntal, 'antal');
+			sortFunction(btnSortFärg, 'färg');
+			
 		});
 	</script>
 </body>
