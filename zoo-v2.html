@@ -67,8 +67,11 @@
 				});
 			});
 			
-			firebase.database().ref('djur/').on('value', function(snapshot) {
+			firebase.database().ref('djur/').on('child_added', function(snapshot, prevChildKey) {
 				console.log('Första gången eller ändring i databasen');
+				let data = snapshot.val();
+				console.log('data:', data);
+				/*
 				let data = snapshot.val();
 				tableVisaDjur.innerHTML = '';
 				for( let key in data ) {
@@ -77,7 +80,7 @@
 					let tr = document.createElement('tr');
 					tr.innerHTML = `<td>${animal.namn}</td> <td>${animal.familj}</td> <td>${animal.antal}</td> <td style="width: 50px; background-color: ${animal.färg};"></td>`;
 					tableVisaDjur.appendChild(tr);
-				}
+				}*/
 			})
 		});
 	</script>
