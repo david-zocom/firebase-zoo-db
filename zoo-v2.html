@@ -53,6 +53,10 @@
 		<button id="btnSortFärg">Färg</button>
 	</p>
 	
+	<p>
+		Antal resultat: <input id="inputAntalResultat" placeholder="500"/>
+	</p>
+	
 	<table id="tableVisaDjur"></table>
 	
 	<script type="text/javascript">
@@ -68,13 +72,15 @@
 			let btnSortFamilj = document.getElementById('btnSortFamilj');
 			let btnSortAntal = document.getElementById('btnSortAntal');
 			let btnSortFärg = document.getElementById('btnSortFärg');
+			let inputAntalResultat = document.getElementById('inputAntalResultat');
+			
 			
 			addButton.addEventListener('click', function(event) {
 				console.log('Klickat lägga till djur');
 				firebase.database().ref('djur/').push({
 					namn: namn.value,
 					familj: familj.value,
-					antal: antal.value,
+					antal: Number(antal.value),
 					färg: färg.value
 				});
 			});
@@ -108,6 +114,16 @@
 			sortFunction(btnSortAntal, 'antal');
 			sortFunction(btnSortFärg, 'färg');
 			
+			inputAntalResultat.addEventListener('keypress', function(event) {
+				let antal = Number(inputAntalResultat.value);
+				tableVisaDjur.innerHTML = '';
+				firebase.database().ref('djur/').limitToFirst(antal)
+				.once('value', function(snapshot) {
+						snapshot.forEach( animalRef => {
+							addAnimalToTable(animalRef.val());
+						})
+				});
+			});
 		});
 	</script>
 </body>
