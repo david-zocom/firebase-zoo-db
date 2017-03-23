@@ -68,7 +68,7 @@
 			});
 			
 			firebase.database().ref('djur/').on('child_added', function(snapshot, prevChildKey) {
-				//console.log('Första gången eller ändring i databasen');
+				console.log('Första gången eller ändring i databasen. prevChildKey: ' + prevChildKey);
 				let data = snapshot.val();
 				//console.log('data:', data);
 				let tr = document.createElement('tr');
