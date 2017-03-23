@@ -68,9 +68,12 @@
 			});
 			
 			firebase.database().ref('djur/').on('child_added', function(snapshot, prevChildKey) {
-				console.log('Första gången eller ändring i databasen');
+				//console.log('Första gången eller ändring i databasen');
 				let data = snapshot.val();
-				console.log('data:', data);
+				//console.log('data:', data);
+				let tr = document.createElement('tr');
+				tr.innerHTML = `<td>${data.namn}</td> <td>${data.familj}</td> <td>${data.antal}</td> <td style="width: 50px; background-color: ${data.färg};"></td>`;
+				tableVisaDjur.appendChild(tr);
 				/*
 				let data = snapshot.val();
 				tableVisaDjur.innerHTML = '';
