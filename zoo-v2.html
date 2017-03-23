@@ -117,12 +117,16 @@
 			inputAntalResultat.addEventListener('keypress', function(event) {
 				let antal = Number(inputAntalResultat.value);
 				tableVisaDjur.innerHTML = '';
-				firebase.database().ref('djur/').limitToFirst(antal)
-				.once('value', function(snapshot) {
-						snapshot.forEach( animalRef => {
-							addAnimalToTable(animalRef.val());
-						})
-				});
+				if( isNaN(antal) ) {
+					// varna användaren
+				} else {
+					firebase.database().ref('djur/').limitToFirst(antal)
+					.once('value', function(snapshot) {
+							snapshot.forEach( animalRef => {
+								addAnimalToTable(animalRef.val());
+							})
+					});
+				}
 			});
 		});
 	</script>
