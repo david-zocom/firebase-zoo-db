@@ -96,8 +96,8 @@
 				//firebase.database().ref('djur/').off('value')
 				firebase.database().ref('djur/').orderByChild('namn')
 				.once('value', function(snapshot) {
-					snapshot.forEach( animal => {
-						addAnimalToTable(animal);
+					snapshot.forEach( animalRef => {
+						addAnimalToTable(animalRef.val());
 					})
 				});
 			})
